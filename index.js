@@ -47,13 +47,11 @@ const handleErrors = fn => async (req, res) => {
   } catch (err) {
     console.log(err.stack);
 
-    if (err.name === "ApiError") {
+    if (err.code === 404) {
       return send(res, 404, notFoundString);
     }
 
-    if (!err.statusCode) {
-      return send(res, 500, internalErrorString);
-    }
+    return send(res, err.code || 500, internalErrorString);
   }
 };
 
