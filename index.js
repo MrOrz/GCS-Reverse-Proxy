@@ -106,7 +106,7 @@ async function sendFile(res, bucket, filePath) {
 }
 
 async function handleSingleBucket(req, res) {
-  const filePath = urlPathToFsPath(req.url);
+  const filePath = urlPathToFsPath(req.url.slice(1)/* strip leading `/` */);
   const bucketName = allowedBuckets[0];
 
   if (!bucketRef[bucketName]) {
